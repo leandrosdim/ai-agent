@@ -9,6 +9,7 @@ export default function ProjectManagement() {
 
   const [projectName, setProjectName] = useState('');
   const [expandedMap, setExpandedMap] = useState({}); // { [index]: true|false }
+  const [isOpen, setIsOpen] = useState(false);
 
 
 
@@ -20,6 +21,15 @@ export default function ProjectManagement() {
     api: "/api/goal-achievment",
     schema: projectSchema
   })
+
+  //function for formating the hours. Sometimes the AI responses with h at the end and sometimes not because the schema expects string there. 
+  function formatHours(hoursStr) {
+    if (!hoursStr) return "";
+    const n = parseFloat(hoursStr);
+    if (Number.isNaN(n)) return hoursStr; // fallback if it's weird
+    return `${n}h`;
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -142,28 +152,69 @@ export default function ProjectManagement() {
               </div>
             </div>
 
-       {/* Task List */}
+            {/* Task List */}
+            {/* Task List */}
             {object.project.tasks?.length > 0 && (
               <div className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-800 dark:bg-slate-900">
                 <h3 className="px-1 py-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
                   Tasks
                 </h3>
                 <ul className="divide-y divide-slate-200 dark:divide-slate-800">
-                  {object.project.tasks.map((t, idx) => (
-                    <li key={idx} className="flex items-start gap-3 px-1 py-3">
-                      <div className="mt-0.5 text-lg leading-none">•</div>
-                      <div className="flex-1">
-                        <p className="text-sm font-medium">{t.task}</p>
-                        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                          Estimated: <span className="font-semibold">{t.hours} h</span> 
-                        </p>
-                      </div>
-                      <span className="shrink-0 rounded-lg bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-200">
-                        {t.hours} h
-                      </span>
-                      <div>{t.details}</div>
-                    </li>
-                  ))}
+                  {object.project.tasks.map((t, idx) => {
+                    const isOpen = !!expandedMap[idx];
+                    return (
+                      <li key={`${t.task}-${t.hours}-${idx}`} className="px-1 py-3">
+                        <div className="flex items-start gap-3">
+                          <div className="mt-0.5 text-lg leading-none">•</div>
+
+                          <div className="flex-1">
+                            <p className="text-sm font-medium">{t.task}</p>
+                            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                              Estimated: <span className="font-semibold">{formatHours(t.hours)}</span> 
+                            </p>
+                          </div>
+
+                          {/* Hours badge + expand button */}
+                          <div className="flex items-center gap-2">
+                            <span className="shrink-0 rounded-lg bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                              {formatHours(t.hours)}
+                            </span>
+                            {t.details && (
+                              <button
+                                type="button"
+                                onClick={() => toggleExpanded(idx)}
+                                className="flex h-7 w-7 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+                                aria-expanded={isOpen}
+                                aria-controls={`task-details-${idx}`}
+                                title={isOpen ? "Hide details" : "Show details"}
+                              >
+                                <svg
+                                  className={`h-4 w-4 transform transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth={2}
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                                </svg>
+                              </button>
+
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Expanded details */}
+                        {isOpen && t.details && (
+                          <div
+                            id={`task-details-${idx}`}
+                            className="mt-2 ml-6 rounded-md border border-slate-200 bg-slate-50 p-3 text-sm leading-6 text-slate-700 dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-300"
+                          >
+                            <div className="whitespace-pre-line">{t.details}</div>
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             )}
