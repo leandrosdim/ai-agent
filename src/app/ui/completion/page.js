@@ -8,18 +8,44 @@ export default function CompletionPage() {
     const [prompt, setPrompt] = useState(""); // user input
     const [completion, setCompletion] = useState(""); // AI response
     const [isLoading, setIsLoading] = useState(false); // loading flag
-    const [error, setError] = useState(''); // error message
+    const [error, setError] = useState(null); // error message
+
+    const complete = async (e) => {
+      e.preventDefault();
+
+      setIsLoading(true);
+      setPrompt('');
+
+      try {
+        const response = await fetch("/api/completion", {
+          method:"POST",
+          headers:{"Content-Type" : "application/json"},
+          body: JSON.stringify({prompt})
+        })
+
+        const data = await response.json();
+        if(!response.ok){
+          throw new Error (data.error || 'Something went wrong');
+        }
+        setCompletion(data.text);
+      } catch (error) {
+        console.log('error in complete->',error);
+        setError(error.message);
+      }finally{
+        setIsLoading(false);
+      }
+    }
 
     return(
         <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
       {error && <div className="text-red-500 mb-4">{error}</div>}
       {isLoading ? (
-        <div>Loading...</div>
+        <div className="whitespace-pre-wrap">Loading...</div>
       ) : completion ? (
         <div className="whitespace-pre-wrap">{completion}</div>
       ) : null}
       <form
-        onSubmit={() => {console.log('hello world')}}
+        onSubmit={complete}
         className="fixed bottom-0 w-full max-w-md mx-auto left-0 right-0 p-4 bg-zinc-50 dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800 shadow-lg"
       >
         <div className="flex gap-2">
