@@ -13,17 +13,20 @@ import {
   Search,
   ArrowRight,
   Home,
+  Coins ,
 } from "lucide-react";
 
 // Mobile‑first feature config. Update hrefs to match your routes.
 const FEATURES = [
   { title: "Text Generator", href: "/ui/completion", desc: "Draft, re‑write, summarize.", icon: MessageSquarePlus, accent: "from-indigo-500/15 to-indigo-500/0" },
   { title: "Chat Bot", href: "/ui/chat", desc: "Multi‑turn conversations.", icon: Bot, accent: "from-sky-500/15 to-sky-500/0" },
-  { title: "Project Management", href: "/ui/goal-achievment", desc: "JSON/Zod‑validated outputs.", icon: Table2, accent: "from-emerald-500/15 to-emerald-500/0" }, 
+  { title: "Project Management", href: "/ui/goal-achievment", desc: "JSON/Zod‑validated outputs.", icon: Workflow, accent: "from-emerald-500/15 to-emerald-500/0" }, 
   { title: "PDF-Image Analysis Chat Bot", href: "/ui/multi-modal-chat", desc: "Summarize & extract tables && understand images.", icon: FileScan, accent: "from-amber-500/15 to-amber-500/0" },
   { title: "Image Generator", href: "/ui/generate-image", desc: "Give a description and generate image.", icon: ImageIcon, accent: "from-fuchsia-500/15 to-fuchsia-500/0" },
-  { title: "File Uploader", href: "/files", desc: "Upload & query docs.", icon: FileUp, accent: "from-pink-500/15 to-pink-500/0" },
-  { title: "Workflows", href: "/workflows", desc: "Chain utilities into flows.", icon: Workflow, accent: "from-violet-500/15 to-violet-500/0" },
+  // { title: "File Uploader", href: "/files", desc: "Upload & query docs.", icon: FileUp, accent: "from-pink-500/15 to-pink-500/0" },
+  { title: "Currency Converter", href: "/ui/api-tools", desc: "Example of using API-Tools: convert currencies in real-time.", icon: Coins, accent: "from-yellow-500/15 to-yellow-500/0" },
+  // { title: "Workflows", href: "/workflows", desc: "Chain utilities into flows.", icon: Workflow, accent: "from-violet-500/15 to-violet-500/0" },
+  { title: "Web Searcher", href: "/ui/web-search-tool", desc: "AI agent that looks up the web and gives clear, summarized answers.", icon: Search, accent: "from-violet-500/15 to-violet-500/0" },
   { title: "Quick Ask", href: "/ask", desc: "One‑shot answers.", icon: Search, accent: "from-cyan-500/15 to-cyan-500/0" },
 ];
 
