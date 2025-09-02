@@ -13,7 +13,8 @@ import {
   Search,
   ArrowRight,
   Home,
-  Coins ,
+  Coins, 
+  Mic,
 } from "lucide-react";
 
 // Mobile‑first feature config. Update hrefs to match your routes.
@@ -27,7 +28,7 @@ const FEATURES = [
   { title: "Currency Converter", href: "/ui/api-tools", desc: "Example of using API-Tools: convert currencies in real-time.", icon: Coins, accent: "from-yellow-500/15 to-yellow-500/0" },
   // { title: "Workflows", href: "/workflows", desc: "Chain utilities into flows.", icon: Workflow, accent: "from-violet-500/15 to-violet-500/0" },
   { title: "Web Searcher", href: "/ui/web-search-tool", desc: "AI agent that looks up the web and gives clear, summarized answers.", icon: Search, accent: "from-violet-500/15 to-violet-500/0" },
-  { title: "Quick Ask", href: "/ask", desc: "One‑shot answers.", icon: Search, accent: "from-cyan-500/15 to-cyan-500/0" },
+  { title: "Voice Chat", href: "/ui/voice", desc: "Talk with the AI agent using speech — real-time listening and replies.", icon: Mic, accent: "from-cyan-500/15 to-cyan-500/0" },
 ];
 
 export default function HomePage() {
@@ -63,13 +64,13 @@ export default function HomePage() {
             </p>
             <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
               <Link
-                href="/chat"
+                href="/ui/chat"
                 className="inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm sm:text-base font-medium bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:opacity-90"
               >
                 Open Chat <ArrowRight className="size-4" />
               </Link>
               <a
-                href="https://github.com/"
+                href="https://github.com/leandrosdim/ai-agent"
                 target="_blank"
                 className="inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm sm:text-base font-medium border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800"
               >
