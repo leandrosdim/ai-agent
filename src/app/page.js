@@ -19,16 +19,17 @@ import {
 
 // Mobile‑first feature config. Update hrefs to match your routes.
 const FEATURES = [
-  { title: "Text Generator", href: "/ui/completion", desc: "Draft, re‑write, summarize.", icon: MessageSquarePlus, accent: "from-indigo-500/15 to-indigo-500/0" },
+  { title: "Voice Chat", href: "/ui/voice", desc: "Talk with the AI agent using speech — real-time listening and replies.", icon: Mic, accent: "from-cyan-500/15 to-cyan-500/0" },  
   { title: "Chat Bot", href: "/ui/chat", desc: "Multi‑turn conversations.", icon: Bot, accent: "from-sky-500/15 to-sky-500/0" },
   { title: "Project Management", href: "/ui/goal-achievment", desc: "JSON/Zod‑validated outputs.", icon: Workflow, accent: "from-emerald-500/15 to-emerald-500/0" }, 
-  { title: "PDF-Image Analysis Chat Bot", href: "/ui/multi-modal-chat", desc: "Summarize & extract tables && understand images.", icon: FileScan, accent: "from-amber-500/15 to-amber-500/0" },
   { title: "Image Generator", href: "/ui/generate-image", desc: "Give a description and generate image.", icon: ImageIcon, accent: "from-fuchsia-500/15 to-fuchsia-500/0" },
+  { title: "PDF-Image Analysis Chat Bot", href: "/ui/multi-modal-chat", desc: "Summarize & extract tables && understand images.", icon: FileScan, accent: "from-amber-500/15 to-amber-500/0" },  
   // { title: "File Uploader", href: "/files", desc: "Upload & query docs.", icon: FileUp, accent: "from-pink-500/15 to-pink-500/0" },
   { title: "Currency Converter", href: "/ui/api-tools", desc: "Example of using API-Tools: convert currencies in real-time.", icon: Coins, accent: "from-yellow-500/15 to-yellow-500/0" },
   // { title: "Workflows", href: "/workflows", desc: "Chain utilities into flows.", icon: Workflow, accent: "from-violet-500/15 to-violet-500/0" },
   { title: "Web Searcher", href: "/ui/web-search-tool", desc: "AI agent that looks up the web and gives clear, summarized answers.", icon: Search, accent: "from-violet-500/15 to-violet-500/0" },
-  { title: "Voice Chat", href: "/ui/voice", desc: "Talk with the AI agent using speech — real-time listening and replies.", icon: Mic, accent: "from-cyan-500/15 to-cyan-500/0" },
+  { title: "Text Generator", href: "/ui/completion", desc: "Draft, re‑write, summarize.", icon: MessageSquarePlus, accent: "from-indigo-500/15 to-indigo-500/0" },
+  
 ];
 
 export default function HomePage() {
@@ -43,11 +44,10 @@ export default function HomePage() {
           </div>
           {/* Desktop quick links */}
           <nav className="hidden sm:flex items-center gap-4 text-sm text-slate-600 dark:text-slate-300">
-            <Link href="/chat" className="hover:text-slate-900 dark:hover:text-white">Chat</Link>
-            <Link href="/text" className="hover:text-slate-900 dark:hover:text-white">Text</Link>
-            <Link href="/structured" className="hover:text-slate-900 dark:hover:text-white">Structured</Link>
-            <Link href="/vision" className="hover:text-slate-900 dark:hover:text-white">Vision</Link>
-            <Link href="/pdf" className="hover:text-slate-900 dark:hover:text-white">PDF</Link>
+            <Link href="/ui/about" className="hover:text-slate-900 dark:hover:text-white">About</Link>
+            <Link href="/ui/docs" className="hover:text-slate-900 dark:hover:text-white">Docs</Link>
+            <Link href="/ui/pricing" className="hover:text-slate-900 dark:hover:text-white">Pricing</Link>
+            <Link href="/ui/contact" className="hover:text-slate-900 dark:hover:text-white">Contact</Link>
           </nav>
         </div>
       </header>
@@ -86,7 +86,7 @@ export default function HomePage() {
               <div className="flex items-center gap-3">
                 <Bot className="size-5 sm:size-6" />
                 <div>
-                  <h3 className="font-semibold">Unified interface</h3>
+                  <h3 className="font-semibold">Quick launch interface</h3>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
                     Every capability is a separate route—this page is the fast launcher.
                   </p>            
@@ -130,8 +130,8 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between text-sm text-slate-500">
           <p>© {new Date().getFullYear()} AI Super Agent</p>
           <div className="flex items-center gap-4">
-            <Link href="/about" className="hover:text-slate-700 dark:hover:text-slate-300">About</Link>
-            <Link href="/privacy" className="hover:text-slate-700 dark:hover:text-slate-300">Privacy</Link>
+            <Link href="/ui/about" className="hover:text-slate-700 dark:hover:text-slate-300">About</Link>
+            <Link href="/ui/privacy" className="hover:text-slate-700 dark:hover:text-slate-300">Privacy</Link>
           </div>
         </div>
       </footer>
@@ -172,9 +172,9 @@ function MobileTabBar() {
   const tabs = [
     { href: "/", label: "Home", icon: Home },
     { href: "/ui/chat", label: "Chat", icon: Bot },
-    { href: "/ui/text", label: "Text", icon: MessageSquarePlus },
-    { href: "/vision", label: "Vision", icon: ImageIcon },
-    { href: "/pdf", label: "PDF", icon: FileScan },
+    { href: "/ui/voice", label: "Voice", icon: Mic },
+    { href: "/ui/generate-image", label: "Generate Image", icon: ImageIcon },
+    { href: "/ui/goal-achievment", label: "Project Management", icon: Workflow },
   ];
 
   return (
