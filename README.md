@@ -44,7 +44,7 @@ The Image Studio page allows users to transform text prompts into AI-generated i
 
 ### PDF && Image Analysis
 The Multi-Modal Chat Bot page extends conversations beyond text by allowing users to upload PDFs and images. The AI can summarize, extract tables, or describe visuals directly in the chat flow, displaying previews of uploaded files alongside responses. This makes it a powerful tool for analyzing documents and images interactively, combining chat flexibility with file understanding.
-![PDF && Image Analysis Screenshot](./screenshots/pdf-image-analysis.png)
+![PDF and Image Analysis Screenshot](./screenshots/pdf-analysis.png)
 
 
 ### AI Currency Converter
