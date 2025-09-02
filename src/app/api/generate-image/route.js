@@ -29,7 +29,7 @@ export async function POST(req) {
       return Response.json({ error: "No image data" }, { status: 500 });
     }
 
-    return Response.json({ image: base64, usage }); // you can return usage to frontend if needed
+    return Response.json({ image: base64 }); 
   } catch (error) {
     console.error("Error generating image ->", error);
     return Response.json({ error: "Failed to generate image" }, { status: 500 });

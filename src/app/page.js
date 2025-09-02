@@ -28,7 +28,7 @@ const FEATURES = [
   { title: "Currency Converter", href: "/ui/api-tools", desc: "Example of using API-Tools: convert currencies in real-time.", icon: Coins, accent: "from-yellow-500/15 to-yellow-500/0" },
   // { title: "Workflows", href: "/workflows", desc: "Chain utilities into flows.", icon: Workflow, accent: "from-violet-500/15 to-violet-500/0" },
   { title: "Web Searcher", href: "/ui/web-search-tool", desc: "AI agent that looks up the web and gives clear, summarized answers.", icon: Search, accent: "from-violet-500/15 to-violet-500/0" },
-  { title: "Text Generator", href: "/ui/completion", desc: "Draft, re‑write, summarize.", icon: MessageSquarePlus, accent: "from-indigo-500/15 to-indigo-500/0" },
+  { title: "Text Generator", href: "/ui/completion", desc: "One shot answers...", icon: MessageSquarePlus, accent: "from-indigo-500/15 to-indigo-500/0" },
   
 ];
 
