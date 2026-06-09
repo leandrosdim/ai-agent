@@ -7,7 +7,7 @@ export const projectSchema = z.object ({ //Create the Schema that we want the ai
                     z.object({
                         task: z.string(),
                         hours: z.string(),
-                        details: z.string().optional(),
+                        details: z.string(),
                     })
                 ),
         conclusion: z.string(),

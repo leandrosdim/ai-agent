@@ -9,12 +9,9 @@ export async function POST(req) {
       const size = allowed.has(rawSize) ? rawSize : "1024x1024";
 
     const result = await generateImage({
-      model: openai.imageModel("dall-e-3"),
+      model: openai.imageModel("gpt-image-1"),
       prompt,
       size,
-      providerOptions: {
-        openai: { style, quality: "hd" },
-      },
     });
 
   

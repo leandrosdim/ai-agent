@@ -1,6 +1,7 @@
 import {
   streamText,
   tool,
+  convertToModelMessages,
   stepCountIs,
 } from "ai";
 import { openai } from "@ai-sdk/openai";
@@ -20,9 +21,11 @@ export async function POST(req) {
       return Response.json({ error: parsed.error }, { status: 400 });
     }
 
+    const modelMessages = await convertToModelMessages(parsed.data.messages);
+
     const result = streamText({
       model: openai.responses("gpt-5-nano"),
-      messages: parsed.data.messages,
+      messages: modelMessages,
       tools,
       stopWhen: stepCountIs(2),
     });
@@ -36,5 +39,3 @@ export async function POST(req) {
     });
   }
 }
-
-
