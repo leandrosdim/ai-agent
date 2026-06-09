@@ -119,9 +119,18 @@ export default function MultiModalChatBot() {
                             id="file-upload"
                             type="file"
                             className="hidden"
+                            accept="image/*,.pdf"
                             onChange={(event) => {
                                 if (event.target.files) {
-                                    setFiles(event.target.files);
+                                    const files = event.target.files;
+                                    const MAX_SIZE = 10 * 1024 * 1024;
+                                    const oversized = Array.from(files).some(f => f.size > MAX_SIZE);
+                                    if (oversized) {
+                                        alert("Each file must be under 10 MB.");
+                                        if(fileInputRef.current) fileInputRef.current.value = "";
+                                        return;
+                                    }
+                                    setFiles(files);
                                 }
                             }}
                             multiple

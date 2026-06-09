@@ -6,6 +6,7 @@ import {
 } from "ai";
 import { openai } from "@ai-sdk/openai";
 import { z } from "zod";
+import { messagesSchema, validateBody } from "../_lib/validation";
 
 
 
@@ -55,22 +56,26 @@ const tools = {
 
 export async function POST(req) {
   try {
-    const { messages } = await req.json();
+    const body = await req.json();
+    const parsed = validateBody(messagesSchema, body);
+    if (!parsed.ok) {
+      return new Response(JSON.stringify({ error: parsed.error }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
 
     const result = streamText({
-      // You can change to any model you have access to
       model: openai(process.env.OPENAI_MODEL || "gpt-4.1-mini"),
-      messages: convertToModelMessages(messages),
+      messages: convertToModelMessages(parsed.data.messages),
       tools,
-      // keep it short like your teacher’s example
       stopWhen: stepCountIs(2),
     });
 
-    // IMPORTANT: UI message stream (matches DefaultChatTransport on client)
     return result.toUIMessageStreamResponse();
   } catch (err) {
-    console.error("[api-tool] error", err);
-    return new Response(JSON.stringify({ error: err?.message || "Unknown error" }), {
+    console.error("[api-tools] error", err);
+    return new Response(JSON.stringify({ error: "Failed to process request" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });

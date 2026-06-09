@@ -57,8 +57,7 @@ export default function VoiceAgent() {
             const secretResp = await fetch("/api/realtime/secret");
             //log("secretResp status:", secretResp.status);
             const secret = await secretResp.json();
-            //log("secret payload keys:", Object.keys(secret || {}));
-            const token = secret?.client_secret?.value;
+            const token = secret?.clientSecret;
 
             if (!token) {
                 setStatus("no client secret");

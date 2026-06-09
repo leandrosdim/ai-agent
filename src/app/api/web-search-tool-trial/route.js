@@ -1,5 +1,6 @@
 import { streamText, tool, convertToModelMessages, stepCountIs } from "ai";
 import { openai } from "@ai-sdk/openai";
+import { messagesSchema, validateBody } from "../_lib/validation";
 
 const SYSTEM_PROMPT = `
     You are a sharp, fast research assistant that answers precisely and cites sources when you browse.
@@ -35,24 +36,28 @@ const tools = {
 
 export async function POST(req) {
   try {
-    const { messages } = await req.json();
+    const body = await req.json();
+    const parsed = validateBody(messagesSchema, body);
+    if (!parsed.ok) {
+      return new Response(JSON.stringify({ error: parsed.error }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
 
     const result = streamText({
-      // You can change to any model you have access to
       model: openai.responses("gpt-5-nano"),
       system: SYSTEM_PROMPT,
-      messages: convertToModelMessages(messages),
+      messages: convertToModelMessages(parsed.data.messages),
       tools,
-      // keep it short like your teacher’s example
       stopWhen: stepCountIs(2),
     });
 
-    // IMPORTANT: UI message stream (matches DefaultChatTransport on client)
     return result.toUIMessageStreamResponse();
   } catch (err) {
-    console.error("[api-tool] error", err);
+    console.error("[web-search-tool-trial] error", err);
     return new Response(
-      JSON.stringify({ error: err?.message || "Unknown error" }),
+      JSON.stringify({ error: "Failed to process search request" }),
       {
         status: 500,
         headers: { "Content-Type": "application/json" },

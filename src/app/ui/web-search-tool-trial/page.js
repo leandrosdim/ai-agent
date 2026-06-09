@@ -225,7 +225,7 @@ export default function APIToolPage() {
           </div>
 
           <div className="mt-2 flex items-center justify-between text-[11px] text-zinc-500 dark:text-zinc-400">
-            <span>Tip: Ask for "sources" or "bullet summary".</span>
+            <span>Tip: Ask for &ldquo;sources&rdquo; or &ldquo;bullet summary&rdquo;.</span>
             <span className="hidden sm:inline">Mobile-friendly · Dark-mode ready</span>
           </div>
         </div>
