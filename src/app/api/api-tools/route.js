@@ -1,7 +1,6 @@
 import {
   streamText,
   tool,
-  convertToModelMessages,
   stepCountIs,
 } from "ai";
 import { openai } from "@ai-sdk/openai";
@@ -22,7 +21,6 @@ const tools = {
       const f = from.toUpperCase();
       const t = to.toUpperCase();
 
-      // main conversion
       const res = await fetch(
         `https://api.frankfurter.app/latest?amount=${encodeURIComponent(amount)}&from=${encodeURIComponent(f)}&to=${encodeURIComponent(t)}`,
         { cache: "no-store" }
@@ -35,7 +33,6 @@ const tools = {
       const converted = data?.rates?.[t];
       if (typeof converted !== "number") throw new Error(`Unable to convert ${f} -> ${t}`);
 
-      // unit rate for transparency (1 FROM -> TO)
       const unitRes = await fetch(
         `https://api.frankfurter.app/latest?amount=1&from=${encodeURIComponent(f)}&to=${encodeURIComponent(t)}`,
         { cache: "no-store" }
@@ -46,8 +43,8 @@ const tools = {
       return {
         query: { amount, from: f, to: t },
         convertedAmount: converted,
-        unitRate,            // 1 FROM = unitRate TO
-        date: data?.date,    // ECB rates date
+        unitRate,
+        date: data?.date,
         source: "frankfurter.app",
       };
     },
@@ -59,15 +56,12 @@ export async function POST(req) {
     const body = await req.json();
     const parsed = validateBody(messagesSchema, body);
     if (!parsed.ok) {
-      return new Response(JSON.stringify({ error: parsed.error }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+      return Response.json({ error: parsed.error }, { status: 400 });
     }
 
     const result = streamText({
       model: openai(process.env.OPENAI_MODEL || "gpt-4.1-mini"),
-      messages: convertToModelMessages(parsed.data.messages),
+      messages: parsed.data.messages,
       tools,
       stopWhen: stepCountIs(2),
     });

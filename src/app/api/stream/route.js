@@ -19,6 +19,6 @@ export async function POST(req) {
 
   } catch (error) {
     console.error("Error streaming text:", error);
-    return new Response.json({ error: "Failed to stream text" }, { status: 500 });
+    return Response.json({ error: "Failed to stream text" }, { status: 500 });
   }
 }

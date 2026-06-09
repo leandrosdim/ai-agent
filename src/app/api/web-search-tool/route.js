@@ -1,7 +1,6 @@
 import {
   streamText,
   tool,
-  convertToModelMessages,
   stepCountIs,
 } from "ai";
 import { openai } from "@ai-sdk/openai";
@@ -18,15 +17,12 @@ export async function POST(req) {
     const body = await req.json();
     const parsed = validateBody(messagesSchema, body);
     if (!parsed.ok) {
-      return new Response(JSON.stringify({ error: parsed.error }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+      return Response.json({ error: parsed.error }, { status: 400 });
     }
 
     const result = streamText({
       model: openai.responses("gpt-5-nano"),
-      messages: convertToModelMessages(parsed.data.messages),
+      messages: parsed.data.messages,
       tools,
       stopWhen: stepCountIs(2),
     });
