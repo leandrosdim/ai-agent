@@ -53,15 +53,31 @@ export default function VoiceAgent() {
         //log("Start connect()");
 
         try {
-            // 1) get ephemeral client secret from our server (server injects your base instructions)
-            const secretResp = await fetch("/api/realtime/secret");
-            //log("secretResp status:", secretResp.status);
+            // 1) get ephemeral client secret from our server
+            let secretResp;
+            try {
+                secretResp = await fetch("/api/realtime/secret");
+            } catch (fetchErr) {
+                console.error("[voice] Failed to reach /api/realtime/secret:", fetchErr);
+                setStatus("error");
+                alert("Cannot reach server. Please try again.");
+                return;
+            }
+
+            if (!secretResp.ok) {
+                const errBody = await secretResp.json().catch(() => ({}));
+                console.error("[voice] secret endpoint error:", secretResp.status, errBody);
+                setStatus("error");
+                alert("Server error: " + (errBody.error || secretResp.status));
+                return;
+            }
+
             const secret = await secretResp.json();
             const token = secret?.clientSecret;
 
             if (!token) {
                 setStatus("no client secret");
-                alert("Failed to get client secret");
+                alert("Failed to get client secret. Check your OPENAI_API_KEY.");
                 return;
             }
 
@@ -159,9 +175,9 @@ export default function VoiceAgent() {
 
             if (!sdpResp.ok) {
                 const errText = await sdpResp.text();
-                log("SDP error text:", errText);
+                console.error("[voice] SDP error:", sdpResp.status, errText);
                 setStatus("SDP error");
-                alert("Realtime connect error:\n" + errText);
+                alert("Failed to connect to Realtime API. Please try again.");
                 return;
             }
 
