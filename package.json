@@ -9,20 +9,20 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^2.0.23",
-    "@ai-sdk/react": "^2.0.28",
-    "ai": "^5.0.28",
+    "@ai-sdk/openai": "^3.0.68",
+    "@ai-sdk/react": "^3.0.200",
+    "ai": "^6.0.198",
     "lucide-react": "^0.542.0",
-    "next": "15.5.2",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "next": "^15.5.19",
+    "react": "^19.1.2",
+    "react-dom": "^19.1.2",
     "zod": "^4.1.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
-    "eslint-config-next": "15.5.2",
+    "eslint-config-next": "^15.5.19",
     "tailwindcss": "^4"
   }
 }
